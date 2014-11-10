@@ -1,0 +1,10 @@
+build/.installed.cfg
+build/anybox.recipe.openerp/
+build/bin/
+build/bootstrap.py
+build/buildout.dev.cfg
+build/develop-eggs/
+build/eggs/
+build/etc/
+build/l10n_ar/
+build/upgrade.py

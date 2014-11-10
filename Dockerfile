@@ -1,15 +1,23 @@
 # Version: 0.0.1
 FROM ubuntu:14.04
 MAINTAINER Sebastian Kennedy "skennedy@e-mips.com.ar"
+ENV REFRESHED_AT 2014-11-10
+
 RUN apt-get update
 
-# Instalacion de paquetes necesarions para OpenERP
-RUN apt-get install -y python-dateutil python-docutils python-feedparser python-gdata
-RUN apt-get install -y python-jinja2 python-ldap python-libxslt1 python-lxml 
-RUN apt-get install -y python-mako python-mock python-openid python-psycopg2 python-psutil
-RUN apt-get install -y python-pybabel python-pychart python-pydot python-pyparsing
-RUN apt-get install -y python-reportlab python-simplejson python-tz python-unittest2
-RUN apt-get install -y python-vatnumber python-vobject python-webdav
-RUN apt-get install -y python-werkzeug python-xlwt python-yaml python-zsi
+RUN apt-get install -y python2.7 python-setuptools python-pip python-dev libxml2 libxml2-dev libxslt-dev zlib1g-dev libpq-dev libsasl2-dev libldap2-dev
+RUN apt-get install -y wget git bzr
+
+RUN pip install zc.buildout
+
+ENV BUILDOUT_DIR /opt/buildout
+
+VOLUME ["/opt/buildout", "/opt/buildout/odoo"]
+
+USER odoodev
+
+COPY ./start.sh /tmp/
+
+WORKDIR /opt/buildout
 
 EXPOSE 8069
