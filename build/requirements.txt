@@ -1,0 +1,3 @@
+# Escribir los requerimientos a instalar aqui debajo
+xlrd
+#suds==0.4
