@@ -14,16 +14,23 @@ RUN useradd -ms /bin/bash odoodev
 RUN echo "odoodev:password" | chpasswd
 RUN gpasswd -a odoodev sudo
 
-ENV BUILDOUT_DIR /opt/buildout
+RUN sed -e 's/^%sudo\s\S*\s\S*/%sudo ALL=NOPASSWD: ALL/' /etc/sudoers  > /tmp/sudoers
+RUN cp /tmp/sudoers /etc/sudoers
 
 VOLUME ["/opt/buildout"]
 
+COPY ./start.sh /tmp/
+
 RUN chown -R odoodev /opt/buildout
+
+RUN chown -R odoodev /tmp/start.sh
 
 USER odoodev
 
-COPY ./start.sh /tmp/
-
 WORKDIR /opt/buildout
 
+RUN chmod 755 /tmp/start.sh
+
 EXPOSE 8069
+
+CMD /tmp/start.sh; bash
