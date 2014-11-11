@@ -20,10 +20,12 @@ RUN cp /tmp/sudoers /etc/sudoers
 VOLUME ["/opt/buildout"]
 
 COPY ./start.sh /tmp/
+COPY ./buildout.cfg /tmp/
 
 RUN chown -R odoodev /opt/buildout
 
 RUN chown -R odoodev /tmp/start.sh
+RUN chown -R odoodev /tmp/buildout.cfg
 
 USER odoodev
 
