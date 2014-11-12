@@ -1,0 +1,16 @@
+postgresqlodoo7:
+    image: sameersbn/postgresql:9.1-1
+    environment:
+        - DB_USER=odoo
+        - DB_PASS=password
+    volumes:
+        - /opt/postgresql_docker/data/:/var/lib/postgresql
+odooaconcagua:
+    build: .
+    links:
+        - postgresqlodoo7:db
+    volumes:
+        - ./build:/opt/buildout
+        - /home/skennedy/.buildout/odoo7:/opt/buildout/parts/odoo/
+    ports:
+        - "8099:8069"
